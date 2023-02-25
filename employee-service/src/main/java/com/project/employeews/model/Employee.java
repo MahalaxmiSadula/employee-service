@@ -1,27 +1,43 @@
 package com.project.employeews.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "first_name")
+	@NotEmpty
+	@Column(name = "first_name", length = 32,nullable = false)
 	private String firstName;
 
-	@Column(name = "last_name")
+	@NotEmpty
+	@Column(name = "last_name", nullable = false, length = 32)
 	private String lastName;
 
-	@Column(name = "email")
+	/*
+	 * unique in @Column is used only if you let your JPA provider create the
+	 * database for you - it will create the unique constraint on the specified
+	 * column. But if you already have the database, or you alter it once created,
+	 * then unique doesn't have any effect.
+	 */
+	@NotEmpty
+	@Column(unique = true, name = "email", length = 50, nullable = false)
+	@Email
 	private String email;
 
 	public Employee() {
