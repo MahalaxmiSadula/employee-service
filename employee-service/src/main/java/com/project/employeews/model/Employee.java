@@ -22,7 +22,7 @@ public class Employee implements Serializable {
 	private Long id;
 
 	@NotEmpty
-	@Column(name = "first_name", length = 32,nullable = false)
+	@Column(name = "first_name", length = 32, nullable = false)
 	private String firstName;
 
 	@NotEmpty

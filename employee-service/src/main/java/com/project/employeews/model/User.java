@@ -77,8 +77,8 @@ public class User implements UserDetails, Serializable {
 		return id;
 	}
 
-	public void setId(Long string) {
-		this.id = string;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
