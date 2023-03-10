@@ -1,8 +1,10 @@
 package com.project.employeews.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,17 +17,13 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "expenses")
-public class Expense {
+public class Expense implements Serializable {
 
-//	@ManyToOne
-//	@JoinColumn(name = "troop_fk", insertable = false, updatable = false)
-//	public Troop getTroop() {
-//
-//	}
+	private static final long serialVersionUID = 6964837607146141995L;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-//	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JsonIgnore
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@Id
@@ -47,20 +45,12 @@ public class Expense {
 	@Column(name = "description", length = 32, nullable = false)
 	private String description;
 
-	public Expense() {
-		super();
-	}
-
-	public Expense(@NotEmpty String expenseName, @NotEmpty String vendor, Double amount, @NotEmpty String description) {
-		super();
-		this.expenseName = expenseName;
-		this.vendor = vendor;
-		this.amount = amount;
-		this.description = description;
-	}
-
-	public Long getEid() {
+	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getExpenseName() {
